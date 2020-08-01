@@ -1,2 +1,2 @@
-# Ray3K-Jam-Template-2
- A template for game jam games focussing on Spine use and exporting to HTML5
+# GBTK 3
+ A game for the Game Breaker's Toolkit Jam #3
