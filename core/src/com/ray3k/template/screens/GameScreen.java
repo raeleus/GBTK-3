@@ -1,14 +1,11 @@
 package com.ray3k.template.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -16,7 +13,6 @@ import com.crashinvaders.vfx.effects.EarthquakeEffect;
 import com.ray3k.template.Core.*;
 import com.ray3k.template.*;
 import com.ray3k.template.entities.*;
-import com.ray3k.template.screens.DialogPause.*;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import static com.ray3k.template.Core.*;
@@ -39,29 +35,6 @@ public class GameScreen extends JamScreen {
         paused = false;
         
         stage = new Stage(new ScreenViewport(), batch);
-        stage.addListener(new InputListener() {
-            @Override
-            public boolean keyDown(InputEvent event, int keycode) {
-                if (!paused && keycode == Keys.ESCAPE) {
-                    paused = true;
-                    
-                    DialogPause dialogPause = new DialogPause(GameScreen.this);
-                    dialogPause.show(stage);
-                    dialogPause.addListener(new PauseListener() {
-                        @Override
-                        public void resume() {
-                            paused = false;
-                        }
-    
-                        @Override
-                        public void quit() {
-                            core.transition(new MenuScreen());
-                        }
-                    });
-                }
-                return super.keyDown(event, keycode);
-            }
-        });
         
         skin = assetManager.get("skin/shimmer-ui.json");
         shapeDrawer = new ShapeDrawer(batch, skin.getRegion("white"));
