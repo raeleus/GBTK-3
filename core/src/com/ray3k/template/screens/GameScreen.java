@@ -36,7 +36,7 @@ public class GameScreen extends JamScreen {
         
         stage = new Stage(new ScreenViewport(), batch);
         
-        skin = assetManager.get("skin/shimmer-ui.json");
+        skin = assetManager.get("skin/skin.json");
         shapeDrawer = new ShapeDrawer(batch, skin.getRegion("white"));
         shapeDrawer.setPixelSize(.5f);
         
