@@ -6,15 +6,19 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.SnapshotArray;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.crashinvaders.vfx.effects.EarthquakeEffect;
+import com.esotericsoftware.spine.AnimationState;
+import com.esotericsoftware.spine.AnimationStateData;
+import com.esotericsoftware.spine.Skeleton;
+import com.esotericsoftware.spine.SkeletonData;
 import com.ray3k.template.*;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -29,9 +33,19 @@ public class GameScreen extends JamScreen {
     private EarthquakeEffect vfxEffect;
     private int mode;
     private Array<String> tasks;
+    private Array<SpineDrawable> spineDrawables;
+    private static final int AD_THRESHOLD = 6;
+    private int ads;
+    private static final float SPAWN_DELAY = 3f;
+    private float spawnTimer;
+    private static final int ANNOY_MAX = 6;
+    private int annoyCounter;
+    private SnapshotArray<Dialog> adDialogs;
     
     public GameScreen() {
         tasks = new Array<>();
+        spineDrawables = new Array<>();
+        adDialogs = new SnapshotArray<>();
         tasks.addAll("Explorer", "Systray", "Bpcpost", "CMD.COM", "REAL_PLAYER", "Macromedia Flash Updater", "spooler.exe", "svchost");
         gameScreen = this;
         camera = new OrthographicCamera();
@@ -66,6 +80,12 @@ public class GameScreen extends JamScreen {
                     case 1:
                         showDialog("ERROR System32", "Error System32: I told you already,\nNot enough RAM...");
                         break;
+                    case 2:
+                        showDialog("ERROR System32", "Error System32: Not enough resources.\nTry closing some programs!");
+                        break;
+                    case 3:
+                        showEndDialog();
+                        break;
                 }
             }
         });
@@ -78,7 +98,17 @@ public class GameScreen extends JamScreen {
         imageTextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                if (mode == 2) showAds(5);
                 showTaskManager();
+            }
+        });
+        imageTextButton.addListener(new InputListener() {
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                if (ads > AD_THRESHOLD && annoyCounter < ANNOY_MAX) {
+                    showAd(true);
+                    annoyCounter++;
+                }
             }
         });
     
@@ -92,7 +122,11 @@ public class GameScreen extends JamScreen {
         imageTextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                showDialog("ERROR System32", "Error System32: Not enough RAM...");
+                var imageTextButton = stage.getRoot().findActor("ram");
+                imageTextButton.setVisible(false);
+                mode = 2;
+                tasks.add("RAM Optimizer.exe");
+                showAds();
             }
         });
         
@@ -125,6 +159,18 @@ public class GameScreen extends JamScreen {
     
     @Override
     public void act(float delta) {
+        for (var spineDrawable : spineDrawables) {
+            spineDrawable.update(delta);
+        }
+        
+        if (mode == 2) {
+            spawnTimer -= delta;
+            if (spawnTimer < 0) {
+                spawnTimer = SPAWN_DELAY;
+                showAd();
+            }
+        }
+        
         vfxEffect.update(delta);
         stage.act(delta);
     }
@@ -203,6 +249,42 @@ public class GameScreen extends JamScreen {
         dialog.setPosition(Math.round((stage.getWidth() - dialog.getWidth()) / 2), Math.round((stage.getHeight() - dialog.getHeight()) / 2));
     }
     
+    private void showEndDialog() {
+        assetManager.get("sfx/error.mp3", Sound.class).play();
+        var dialog = new Dialog("Choose difficulty", skin);
+    
+        var hideListener = new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                core.transition(new SplashScreen());
+            }
+        };
+    
+        var imageButton = new ImageButton(skin, "help");
+        dialog.getTitleTable().add(imageButton);
+    
+        imageButton = new ImageButton(skin, "close");
+        dialog.getTitleTable().add(imageButton);
+        imageButton.addListener(hideListener);
+    
+        dialog.text("Welcome to SWEEPER: a game of strategy!\nChoose your difficulty");
+    
+        var textButton = new TextButton("EASY", skin);
+        dialog.getButtonTable().add(textButton);
+        textButton.addListener(hideListener);
+        
+        textButton = new TextButton("MEDIUM", skin);
+        dialog.getButtonTable().add(textButton);
+        textButton.addListener(hideListener);
+    
+        textButton = new TextButton("DIFFICULT", skin);
+        dialog.getButtonTable().add(textButton);
+        textButton.addListener(hideListener);
+    
+        dialog.show(stage, null);
+        dialog.setPosition(Math.round((stage.getWidth() - dialog.getWidth()) / 2), Math.round((stage.getHeight() - dialog.getHeight()) / 2));
+    }
+    
     private void showTaskManager() {
         assetManager.get("sfx/error.mp3", Sound.class).play();
         var dialog = new Dialog("Close Program", skin);
@@ -227,7 +309,12 @@ public class GameScreen extends JamScreen {
         textButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                tasks.removeValue(list.getSelected(), false);
+                var selected = list.getSelected();
+                if (selected.equals("RAM Optimizer.exe")) {
+                    mode++;
+                    clearAds();
+                }
+                tasks.removeValue(selected, false);
                 list.setItems(tasks);
             }
         });
@@ -247,5 +334,69 @@ public class GameScreen extends JamScreen {
     
         dialog.show(stage, null);
         dialog.setPosition(Math.round((stage.getWidth() - dialog.getWidth()) / 2), Math.round((stage.getHeight() - dialog.getHeight()) / 2));
+    }
+    
+    private void showAds() {
+        showAds(25);
+    }
+    
+    private void showAds(int count) {
+        stage.addAction(sequence(delay(1f), repeat(count, sequence(delay(.05f), run(() -> showAd())))));
+    }
+    
+    private void showAd() {
+        showAd(MathUtils.randomBoolean(.3f));
+    }
+    
+    private void showAd(boolean block) {
+        ads++;
+        assetManager.get(MathUtils.randomBoolean() ? "sfx/pop1.mp3" : "sfx/pop2.mp3", Sound.class).play();
+        var dialog = new Dialog("", skin);
+        dialog.setModal(false);
+        adDialogs.add(dialog);
+    
+        int index = MathUtils.random(1, 11);
+        var skeleton = new Skeleton(assetManager.get("spine/at" + index + ".json", SkeletonData.class));
+        var animationState = new AnimationState(assetManager.get("spine/at" + index + ".json-animation", AnimationStateData.class));
+        var spineDrawable = new SpineDrawable(skeletonRenderer, skeleton, animationState);
+        spineDrawable.getAnimationState().setAnimation(0, "animation", true);
+        spineDrawables.add(spineDrawable);
+        
+        var hideListener = new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                spineDrawables.removeValue(spineDrawable, true);
+                dialog.hide(null);
+                ads--;
+                adDialogs.removeValue(dialog, true);
+            }
+        };
+    
+        var imageButton = new ImageButton(skin, "help");
+        dialog.getTitleTable().add(imageButton);
+    
+        imageButton = new ImageButton(skin, "close");
+        dialog.getTitleTable().add(imageButton);
+        imageButton.addListener(hideListener);
+        
+        var image = new Image(spineDrawable);
+        dialog.getContentTable().add(image);
+    
+        dialog.show(stage, null);
+        if (block) {
+            dialog.setPosition(0, Math.round(stage.getHeight() - dialog.getHeight()));
+        } else {
+            dialog.setPosition(Math.round(MathUtils.random(stage.getWidth() - dialog.getWidth())),
+                    Math.round(MathUtils.random(stage.getHeight() - dialog.getHeight())));
+        }
+    }
+    
+    private void clearAds() {
+        Object[] dialogs = adDialogs.begin();
+        for (int i = 0, n = adDialogs.size; i < n; i++)  {
+            var dialog = (Dialog) dialogs[i];
+            dialog.hide();
+        }
+        adDialogs.end();
     }
 }
