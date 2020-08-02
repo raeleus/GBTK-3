@@ -257,21 +257,21 @@ filter: Linear,Linear
 repeat: none
 button-normal
   rotate: false
-  xy: 139, 308
+  xy: 1, 285
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
   index: -1
 button-normal-over
   rotate: false
-  xy: 1, 281
+  xy: 81, 285
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
   index: -1
 button-normal-pressed
   rotate: false
-  xy: 219, 308
+  xy: 161, 285
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
@@ -299,21 +299,21 @@ button-small-pressed
   index: -1
 button-start
   rotate: false
-  xy: 81, 283
+  xy: 241, 287
   size: 55, 25
   orig: 55, 25
   offset: 0, 0
   index: -1
 button-start-over
   rotate: false
-  xy: 299, 310
+  xy: 298, 283
   size: 55, 25
   orig: 55, 25
   offset: 0, 0
   index: -1
 button-start-pressed
   rotate: false
-  xy: 356, 310
+  xy: 241, 260
   size: 55, 25
   orig: 55, 25
   offset: 0, 0
@@ -360,6 +360,13 @@ icon-taskmanager
   orig: 34, 33
   offset: 0, 0
   index: -1
+list-selection
+  rotate: false
+  xy: 1, 314
+  size: 324, 21
+  orig: 324, 21
+  offset: 0, 0
+  index: -1
 taskbar
   rotate: false
   xy: 1, 337
@@ -369,7 +376,7 @@ taskbar
   index: -1
 textfield
   rotate: false
-  xy: 1, 310
+  xy: 327, 310
   size: 136, 25
   orig: 136, 25
   offset: 0, 0

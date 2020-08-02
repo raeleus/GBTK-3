@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.crashinvaders.vfx.effects.EarthquakeEffect;
 import com.ray3k.template.*;
@@ -27,8 +28,11 @@ public class GameScreen extends JamScreen {
     public ShapeDrawer shapeDrawer;
     private EarthquakeEffect vfxEffect;
     private int mode;
+    private Array<String> tasks;
     
     public GameScreen() {
+        tasks = new Array<>();
+        tasks.addAll("Explorer", "Systray", "Bpcpost", "CMD.COM", "REAL_PLAYER", "Macromedia Flash Updater", "spooler.exe", "svchost");
         gameScreen = this;
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(800, 800, camera);
@@ -74,7 +78,7 @@ public class GameScreen extends JamScreen {
         imageTextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                showDialog("ERROR System32", "Error System32: Not enough RAM...");
+                showTaskManager();
             }
         });
     
@@ -195,6 +199,52 @@ public class GameScreen extends JamScreen {
         dialog.getButtonTable().add(textButton);
         textButton.addListener(hideListener);
         
+        dialog.show(stage, null);
+        dialog.setPosition(Math.round((stage.getWidth() - dialog.getWidth()) / 2), Math.round((stage.getHeight() - dialog.getHeight()) / 2));
+    }
+    
+    private void showTaskManager() {
+        assetManager.get("sfx/error.mp3", Sound.class).play();
+        var dialog = new Dialog("Close Program", skin);
+    
+        var hideListener = new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                dialog.hide(null);
+            }
+        };
+        
+        var list = new List<String>(skin);
+        list.setItems(tasks);
+        
+        dialog.getContentTable().add(list).grow().minHeight(200);
+    
+        dialog.getContentTable().row();
+        dialog.text("WARNING: Pressing CTRL+ALT+DEL has been\ndeactivated by your administrator.");
+    
+        var textButton = new TextButton("End Task", skin);
+        dialog.getButtonTable().add(textButton);
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                tasks.removeValue(list.getSelected(), false);
+                list.setItems(tasks);
+            }
+        });
+    
+        textButton = new TextButton("Shut Down", skin);
+        dialog.getButtonTable().add(textButton);
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                showDialog("No, no, no...", "Can't shut down yet, genius!\nYou haven't even got to the good part yet...");
+            }
+        });
+    
+        textButton = new TextButton("Cancel", skin);
+        dialog.getButtonTable().add(textButton);
+        textButton.addListener(hideListener);
+    
         dialog.show(stage, null);
         dialog.setPosition(Math.round((stage.getWidth() - dialog.getWidth()) / 2), Math.round((stage.getHeight() - dialog.getHeight()) / 2));
     }
