@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -58,8 +59,8 @@ public class Core extends JamGame {
         setScreen(new LoadScreen(() -> {
             skin = assetManager.get("skin/skin.json");
         }));
-        defaultTransition = Transitions.colorFade(Color.BLACK);
-        defaultTransitionDuration = .5f;
+        defaultTransition = Transitions.wipe(270, Interpolation.fastSlow);
+        defaultTransitionDuration = 3f;
     }
     
     @Override
