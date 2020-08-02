@@ -25,6 +25,7 @@ import static com.ray3k.template.Core.*;
 public class SplashScreen extends JamScreen {
     private Stage stage;
     private final static Color BG_COLOR = new Color(Color.WHITE);
+    private SpineDrawable spineDrawable;
     
     @Override
     public void show() {
@@ -35,7 +36,8 @@ public class SplashScreen extends JamScreen {
     
         var skeleton = new Skeleton(assetManager.get("spine/logo.json", SkeletonData.class));
         var animationState = new AnimationState(assetManager.get("spine/logo.json-animation"));
-        var spineDrawable = new SpineDrawable(skeletonRenderer, skeleton, animationState);
+        spineDrawable = new SpineDrawable(skeletonRenderer, skeleton, animationState);
+        spineDrawable.getAnimationState().setAnimation(0, "animation", true);
         var image = new Image(spineDrawable);
         image.setScaling(Scaling.none);
         image.setFillParent(true);
@@ -68,6 +70,7 @@ public class SplashScreen extends JamScreen {
     @Override
     public void act(float delta) {
         stage.act(delta);
+        spineDrawable.update(delta);
     }
     
     @Override
