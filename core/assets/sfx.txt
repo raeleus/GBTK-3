@@ -1,0 +1,3 @@
+sfx/error.mp3
+sfx/pop.mp3
+sfx/startup.mp3

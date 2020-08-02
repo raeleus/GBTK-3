@@ -2,6 +2,7 @@ package com.ray3k.template.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -55,6 +56,7 @@ public class SplashScreen extends JamScreen {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.input.setInputProcessor(null);
                 core.transition(new GameScreen());
+                assetManager.get("sfx/startup.mp3", Sound.class).play();
             }
         });
     
@@ -63,6 +65,7 @@ public class SplashScreen extends JamScreen {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.input.setInputProcessor(null);
                 core.transition(new GameScreen());
+                assetManager.get("sfx/startup.mp3", Sound.class).play();
             }
         });
     }
