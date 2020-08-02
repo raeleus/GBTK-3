@@ -251,125 +251,132 @@ spine/white
   index: -1
 
 textures2.png
-size: 1024,1024
+size: 512,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 button-normal
   rotate: false
-  xy: 463, 571
+  xy: 1, 429
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
   index: -1
 button-normal-over
   rotate: false
-  xy: 538, 637
+  xy: 81, 420
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
   index: -1
 button-normal-pressed
   rotate: false
-  xy: 538, 608
+  xy: 161, 420
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
   index: -1
 button-small
   rotate: false
-  xy: 600, 590
+  xy: 71, 458
   size: 18, 16
   orig: 18, 16
   offset: 0, 0
   index: -1
 button-small-over
   rotate: false
-  xy: 618, 648
+  xy: 91, 458
   size: 18, 16
   orig: 18, 16
   offset: 0, 0
   index: -1
 button-small-pressed
   rotate: false
-  xy: 618, 630
+  xy: 111, 458
   size: 18, 16
   orig: 18, 16
   offset: 0, 0
   index: -1
 button-start
   rotate: false
-  xy: 463, 600
+  xy: 131, 449
   size: 55, 25
   orig: 55, 25
   offset: 0, 0
   index: -1
 button-start-over
   rotate: false
-  xy: 463, 544
+  xy: 188, 449
   size: 55, 25
   orig: 55, 25
   offset: 0, 0
   index: -1
 button-start-pressed
   rotate: false
-  xy: 543, 581
+  xy: 245, 449
   size: 55, 25
   orig: 55, 25
   offset: 0, 0
   index: -1
 icon-close
   rotate: false
-  xy: 520, 621
+  xy: 4, 466
   size: 9, 8
   orig: 9, 8
   offset: 0, 0
   index: -1
 icon-explorer
   rotate: false
-  xy: 502, 631
+  xy: 440, 441
   size: 34, 33
   orig: 34, 33
   offset: 0, 0
   index: -1
 icon-game
   rotate: false
-  xy: 463, 627
+  xy: 241, 410
   size: 37, 37
   orig: 37, 37
   offset: 0, 0
   index: -1
 icon-question
   rotate: false
-  xy: 520, 609
+  xy: 15, 464
   size: 6, 10
   orig: 6, 10
   offset: 0, 0
   index: -1
 icon-start
   rotate: false
-  xy: 618, 613
+  xy: 23, 459
   size: 46, 15
   orig: 46, 15
   offset: 0, 0
   index: -1
+taskbar
+  rotate: false
+  xy: 1, 382
+  size: 454, 26
+  orig: 454, 26
+  offset: 0, 0
+  index: -1
 textfield
   rotate: false
-  xy: 463, 517
+  xy: 302, 449
   size: 136, 25
   orig: 136, 25
   offset: 0, 0
   index: -1
 white
   rotate: false
-  xy: 502, 628
+  xy: 1, 473
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 window
   rotate: false
-  xy: 1, 518
+  xy: 1, 234
   size: 460, 146
   orig: 460, 146
   offset: 0, 0

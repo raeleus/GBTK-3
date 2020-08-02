@@ -5,36 +5,41 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.crashinvaders.vfx.effects.EarthquakeEffect;
-import com.ray3k.template.Core.*;
 import com.ray3k.template.*;
-import com.ray3k.template.entities.*;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import static com.ray3k.template.Core.*;
 
 public class GameScreen extends JamScreen {
     public static GameScreen gameScreen;
-    public static final Color BG_COLOR = new Color();
+    public static final Color BG_COLOR = Color.valueOf("3A6EA5");
     public Stage stage;
     public ShapeDrawer shapeDrawer;
-    public EntityController entityController;
     private EarthquakeEffect vfxEffect;
-    public boolean paused;
     
     public GameScreen() {
         gameScreen = this;
+        camera = new OrthographicCamera();
+        viewport = new ExtendViewport(800, 800, camera);
         vfxEffect = new EarthquakeEffect();
+        stage = new Stage(viewport, batch);
         
-        BG_COLOR.set(Color.PINK);
-    
-        paused = false;
+        var root = new Table();
+        root.setFillParent(true);
+        stage.addActor(root);
         
-        stage = new Stage(new ScreenViewport(), batch);
+        var table = new Table();
+        table.setBackground(skin.getDrawable("taskbar-10"));
+        root.add(table).expandY().growX().bottom();
+        
+        var imageButton = new ImageButton(skin, "start");
+        table.add(imageButton).left().expandX();
         
         skin = assetManager.get("skin/skin.json");
         shapeDrawer = new ShapeDrawer(batch, skin.getRegion("white"));
@@ -43,37 +48,13 @@ public class GameScreen extends JamScreen {
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage, this);
         Gdx.input.setInputProcessor(inputMultiplexer);
         
-        camera = new OrthographicCamera();
-        viewport = new FitViewport(1024, 576, camera);
-        
-        entityController = new EntityController();
-        BallTestEntity ballTestEntity = new BallTestEntity();
-        ballTestEntity.moveCamera = true;
-        entityController.add(ballTestEntity);
-        
-        for (int i = 0; i < 10; i++) {
-            ballTestEntity = new BallTestEntity();
-            ballTestEntity.setPosition(MathUtils.random(viewport.getWorldWidth()), MathUtils.random(viewport.getWorldHeight()));
-            entityController.add(ballTestEntity);
-        }
-        
         vfxManager.addEffect(vfxEffect);
     }
     
     @Override
     public void act(float delta) {
-        if (!paused) {
-            entityController.act(delta);
-            vfxEffect.update(delta);
-        }
+        vfxEffect.update(delta);
         stage.act(delta);
-    
-        if (isBindingJustPressed(Binding.LEFT)) {
-            System.out.println("left");
-        }
-        if (isBindingJustPressed(Binding.UP)) {
-            System.out.println("up");
-        }
     }
     
     @Override
@@ -87,12 +68,6 @@ public class GameScreen extends JamScreen {
         batch.begin();
         viewport.apply();
         batch.setProjectionMatrix(camera.combined);
-        shapeDrawer.setColor(isBindingPressed(Binding.LEFT) && isBindingPressed(Binding.UP) ? Color.ORANGE : Color.GREEN);
-        shapeDrawer.filledRectangle(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
-        shapeDrawer.setColor(Color.BLUE);
-        shapeDrawer.setDefaultLineWidth(10);
-        shapeDrawer.rectangle(0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
-        entityController.draw(paused ? 0 : delta);
         batch.end();
         vfxManager.endCapture();
         vfxManager.applyEffects();
