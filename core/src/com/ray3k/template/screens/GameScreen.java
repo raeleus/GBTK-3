@@ -6,16 +6,18 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.crashinvaders.vfx.effects.EarthquakeEffect;
 import com.ray3k.template.*;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import static com.ray3k.template.Core.*;
 
 public class GameScreen extends JamScreen {
@@ -24,6 +26,7 @@ public class GameScreen extends JamScreen {
     public Stage stage;
     public ShapeDrawer shapeDrawer;
     private EarthquakeEffect vfxEffect;
+    private int mode;
     
     public GameScreen() {
         gameScreen = this;
@@ -37,8 +40,65 @@ public class GameScreen extends JamScreen {
         stage.addActor(root);
         
         var table = new Table();
+        table.pad(30);
+        root.add(table).grow();
+        
+        table.defaults().expandX().left().space(30);
+        var imageTextButton = new ImageTextButton("Play Sweeper", skin, "game");
+        imageTextButton.row();
+        imageTextButton.add(imageTextButton.getLabel());
+        table.add(imageTextButton);
+        imageTextButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                switch (mode) {
+                    case 0:
+                        mode++;
+                        showDialog("ERROR System32", "Error System32: Not enough RAM...", Actions.run(() -> {
+                            var imageTextButton = stage.getRoot().findActor("ram");
+                            imageTextButton.addAction(repeat(3, sequence(delay(.2f), visible(false), delay(.2f), visible(true))));
+                        }));
+                        break;
+                    case 1:
+                        showDialog("ERROR System32", "Error System32: I told you already,\nNot enough RAM...");
+                        break;
+                }
+            }
+        });
+        
+        table.row();
+        imageTextButton = new ImageTextButton("Task Manager", skin, "taskmanager");
+        imageTextButton.row();
+        imageTextButton.add(imageTextButton.getLabel());
+        table.add(imageTextButton);
+        imageTextButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                showDialog("ERROR System32", "Error System32: Not enough RAM...");
+            }
+        });
+    
+        table.row();
+        imageTextButton = new ImageTextButton("Download More\nRAM", skin, "explorer");
+        imageTextButton.setName("ram");
+        imageTextButton.setVisible(false);
+        imageTextButton.row();
+        imageTextButton.add(imageTextButton.getLabel());
+        table.add(imageTextButton);
+        imageTextButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                showDialog("ERROR System32", "Error System32: Not enough RAM...");
+            }
+        });
+        
+        table.row();
+        table.add().expand();
+        
+        root.row();
+        table = new Table();
         table.setBackground(skin.getDrawable("taskbar-10"));
-        root.add(table).expandY().growX().bottom();
+        root.add(table).growX();
         
         var imageButton = new ImageButton(skin, "start");
         table.add(imageButton).left().expandX();
@@ -108,13 +168,17 @@ public class GameScreen extends JamScreen {
     }
     
     private void showDialog(String title, String text) {
+        showDialog(title, text, null);
+    }
+    
+    private void showDialog(String title, String text, Action action) {
         assetManager.get("sfx/error.mp3", Sound.class).play();
         var dialog = new Dialog(title, skin);
         
         var hideListener = new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                dialog.hide(null);
+                dialog.hide(action);
             }
         };
         

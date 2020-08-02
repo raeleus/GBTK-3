@@ -257,126 +257,133 @@ filter: Linear,Linear
 repeat: none
 button-normal
   rotate: false
-  xy: 1, 429
+  xy: 139, 308
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
   index: -1
 button-normal-over
   rotate: false
-  xy: 81, 420
+  xy: 1, 281
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
   index: -1
 button-normal-pressed
   rotate: false
-  xy: 161, 420
+  xy: 219, 308
   size: 78, 27
   orig: 78, 27
   offset: 0, 0
   index: -1
 button-small
   rotate: false
-  xy: 71, 458
+  xy: 463, 369
   size: 18, 16
   orig: 18, 16
   offset: 0, 0
   index: -1
 button-small-over
   rotate: false
-  xy: 91, 458
+  xy: 483, 369
   size: 18, 16
   orig: 18, 16
   offset: 0, 0
   index: -1
 button-small-pressed
   rotate: false
-  xy: 111, 458
+  xy: 463, 351
   size: 18, 16
   orig: 18, 16
   offset: 0, 0
   index: -1
 button-start
   rotate: false
-  xy: 131, 449
+  xy: 81, 283
   size: 55, 25
   orig: 55, 25
   offset: 0, 0
   index: -1
 button-start-over
   rotate: false
-  xy: 188, 449
+  xy: 299, 310
   size: 55, 25
   orig: 55, 25
   offset: 0, 0
   index: -1
 button-start-pressed
   rotate: false
-  xy: 245, 449
+  xy: 356, 310
   size: 55, 25
   orig: 55, 25
   offset: 0, 0
   index: -1
 icon-close
   rotate: false
-  xy: 4, 466
+  xy: 502, 503
   size: 9, 8
   orig: 9, 8
   offset: 0, 0
   index: -1
 icon-explorer
   rotate: false
-  xy: 440, 441
+  xy: 463, 439
   size: 34, 33
   orig: 34, 33
   offset: 0, 0
   index: -1
 icon-game
   rotate: false
-  xy: 241, 410
+  xy: 463, 474
   size: 37, 37
   orig: 37, 37
   offset: 0, 0
   index: -1
 icon-question
   rotate: false
-  xy: 15, 464
+  xy: 502, 491
   size: 6, 10
   orig: 6, 10
   offset: 0, 0
   index: -1
 icon-start
   rotate: false
-  xy: 23, 459
+  xy: 463, 387
   size: 46, 15
   orig: 46, 15
   offset: 0, 0
   index: -1
+icon-taskmanager
+  rotate: false
+  xy: 463, 404
+  size: 34, 33
+  orig: 34, 33
+  offset: 0, 0
+  index: -1
 taskbar
   rotate: false
-  xy: 1, 382
+  xy: 1, 337
   size: 454, 26
   orig: 454, 26
   offset: 0, 0
   index: -1
 textfield
   rotate: false
-  xy: 302, 449
+  xy: 1, 310
   size: 136, 25
   orig: 136, 25
   offset: 0, 0
   index: -1
 white
   rotate: false
-  xy: 1, 473
+  xy: 510, 500
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 window
   rotate: false
-  xy: 1, 234
+  xy: 1, 365
   size: 460, 146
   orig: 460, 146
   offset: 0, 0
