@@ -256,7 +256,7 @@ public class GameScreen extends JamScreen {
         var hideListener = new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                core.transition(new SplashScreen());
+                core.transition(new GameOverScreen());
             }
         };
     

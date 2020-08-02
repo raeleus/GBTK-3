@@ -1,4 +1,5 @@
 sfx/error.mp3
 sfx/pop1.mp3
 sfx/pop2.mp3
+sfx/shutdown.mp3
 sfx/startup.mp3
