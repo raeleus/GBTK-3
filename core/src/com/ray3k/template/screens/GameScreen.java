@@ -2,12 +2,14 @@ package com.ray3k.template.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.crashinvaders.vfx.effects.EarthquakeEffect;
@@ -40,6 +42,12 @@ public class GameScreen extends JamScreen {
         
         var imageButton = new ImageButton(skin, "start");
         table.add(imageButton).left().expandX();
+        imageButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                showDialog("Admin Priveleges Required", "This feature has been blocked by your administrator. Please consult your IT department.");
+            }
+        });
         
         skin = assetManager.get("skin/skin.json");
         shapeDrawer = new ShapeDrawer(batch, skin.getRegion("white"));
@@ -97,5 +105,33 @@ public class GameScreen extends JamScreen {
         super.hide();
         vfxManager.removeAllEffects();
         vfxEffect.dispose();
+    }
+    
+    private void showDialog(String title, String text) {
+        assetManager.get("sfx/error.mp3", Sound.class).play();
+        var dialog = new Dialog(title, skin);
+        
+        var hideListener = new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                dialog.hide(null);
+            }
+        };
+        
+        var imageButton = new ImageButton(skin, "help");
+        dialog.getTitleTable().add(imageButton);
+    
+        imageButton = new ImageButton(skin, "close");
+        dialog.getTitleTable().add(imageButton);
+        imageButton.addListener(hideListener);
+        
+        dialog.text(text);
+        
+        var textButton = new TextButton("OK", skin);
+        dialog.getButtonTable().add(textButton);
+        textButton.addListener(hideListener);
+        
+        dialog.show(stage, null);
+        dialog.setPosition(Math.round((stage.getWidth() - dialog.getWidth()) / 2), Math.round((stage.getHeight() - dialog.getHeight()) / 2));
     }
 }
