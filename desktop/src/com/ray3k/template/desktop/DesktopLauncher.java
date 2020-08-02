@@ -21,7 +21,7 @@ import static com.ray3k.template.Core.*;
 public class DesktopLauncher implements CrossPlatformWorker {
 	public static void main (String[] args) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setWindowedMode(1024, 576);
+		config.setWindowedMode(800, 800);
 		config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 3);
 		Core core = new Core();
 		crossPlatformWorker = new DesktopLauncher();

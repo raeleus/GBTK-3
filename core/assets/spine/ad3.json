@@ -1,0 +1,41 @@
+{
+"skeleton": { "hash": "HjcINT1sKiJFzFQTr93/S7Jmj7w", "spine": "3.8.97", "width": 461, "height": 308, "images": "../output/", "audio": "" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "ad-text-3", "parent": "root", "length": 209.71, "x": 261.17, "y": 85.4 }
+],
+"slots": [
+	{ "name": "ad-3", "bone": "root", "attachment": "ad-3" },
+	{ "name": "ad-text-3", "bone": "ad-text-3", "attachment": "ad-text-3" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"ad-3": {
+				"ad-3": { "path": "spine/ad-3", "x": 230.5, "y": 154, "width": 461, "height": 308 }
+			},
+			"ad-text-3": {
+				"ad-text-3": { "path": "spine/ad-text-3", "x": 9.73, "width": 350, "height": 137 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"bones": {
+			"ad-text-3": {
+				"translate": [
+					{ "x": -92.97, "y": 92.97 },
+					{ "time": 0.4667 }
+				],
+				"scale": [
+					{ "x": 0, "y": 0, "curve": 0.07, "c2": 0.67, "c3": 0, "c4": 1.75 },
+					{ "time": 0.4667, "curve": "stepped" },
+					{ "time": 2 }
+				]
+			}
+		}
+	}
+}
+}

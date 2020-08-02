@@ -1,0 +1,37 @@
+{
+"skeleton": { "hash": "0piytitCk5Bpplp1luWGJ58ul24", "spine": "3.8.97", "width": 461, "height": 308, "images": "../output/", "audio": "" },
+"bones": [
+	{ "name": "root" },
+	{ "name": "ad-text-2", "parent": "root", "length": 136.21, "rotation": -0.45, "x": 108.75, "y": 261.6 }
+],
+"slots": [
+	{ "name": "ad-2", "bone": "root", "attachment": "ad-2" },
+	{ "name": "ad-text-2", "bone": "ad-text-2", "attachment": "ad-text-2" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"ad-2": {
+				"ad-2": { "path": "spine/ad-2", "x": 230.5, "y": 154, "width": 461, "height": 308 }
+			},
+			"ad-text-2": {
+				"ad-text-2": { "path": "spine/ad-text-2", "x": 10.8, "y": 1.17, "rotation": 0.45, "width": 213, "height": 60 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"bones": {
+			"ad-text-2": {
+				"translate": [
+					{ "curve": 0.719, "c3": 0.854, "c4": 0.54 },
+					{ "time": 1, "y": -23.78, "curve": 0.719, "c3": 0.854, "c4": 0.54 },
+					{ "time": 2 }
+				]
+			}
+		}
+	}
+}
+}

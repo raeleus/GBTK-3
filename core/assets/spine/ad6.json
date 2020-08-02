@@ -1,0 +1,36 @@
+{
+"skeleton": { "hash": "JRa7lK/kzS/m+o0Z3csENNiZrDw", "spine": "3.8.97", "width": 308, "height": 461, "images": "../output/", "audio": "" },
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "ad-6", "bone": "root", "attachment": "ad-6" },
+	{ "name": "ad-text-6", "bone": "root", "attachment": "ad-text-6" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"ad-6": {
+				"ad-6": { "path": "spine/ad-6", "x": 154, "y": 230.5, "width": 308, "height": 461 }
+			},
+			"ad-text-6": {
+				"ad-text-6": { "path": "spine/ad-text-6", "x": 154, "y": 53.82, "width": 298, "height": 99 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"ad-text-6": {
+				"color": [
+					{ "color": "ffffffff", "curve": 0.738, "c2": 0.01, "c4": 0.39 },
+					{ "time": 0.5, "color": "ffffff00", "curve": 0, "c2": 0.61, "c3": 0.392 },
+					{ "time": 1, "color": "ffffffff" }
+				]
+			}
+		}
+	}
+}
+}

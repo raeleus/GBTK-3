@@ -1,0 +1,44 @@
+{
+"skeleton": {
+	"hash": "8U04jfgmhdWYFo7IFhlNWN/VCYs",
+	"spine": "3.8.97",
+	"x": -2,
+	"y": -0.5,
+	"width": 475,
+	"height": 315,
+	"images": "../output/",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "ad-11", "bone": "root", "attachment": "ad-11" },
+	{ "name": "ad-11-text", "bone": "root", "attachment": "ad-11-text" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"ad-11": {
+				"ad-11": { "path": "spine/ad-11", "x": 235.5, "y": 157, "width": 475, "height": 315 }
+			},
+			"ad-11-text": {
+				"ad-11-text": { "path": "spine/ad-11-text", "x": 235.31, "y": 63.58, "width": 462, "height": 84 }
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"ad-11-text": {
+				"attachment": [
+					{ "time": 0.5, "name": null },
+					{ "time": 1, "name": "ad-11-text" }
+				]
+			}
+		}
+	}
+}
+}

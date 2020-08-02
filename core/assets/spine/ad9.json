@@ -1,0 +1,89 @@
+{
+"skeleton": {
+	"hash": "ZgWmJHAg72arv/i57LM9XsYUv+c",
+	"spine": "3.8.97",
+	"x": 2.93,
+	"y": -1.14,
+	"width": 782.89,
+	"height": 394.8,
+	"images": "../output/",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" }
+],
+"slots": [
+	{ "name": "white", "bone": "root", "attachment": "white" },
+	{ "name": "ad-9-a", "bone": "root", "attachment": "ad-9-a" },
+	{ "name": "ad-9-b", "bone": "root", "attachment": "ad-9-b" },
+	{ "name": "ad-9-warning", "bone": "root", "attachment": "ad-9-warning" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"ad-9-a": {
+				"ad-9-a": { "path": "spine/ad-9-a", "x": 417.65, "y": 250.04, "width": 445, "height": 227 }
+			},
+			"ad-9-b": {
+				"ad-9-b": { "path": "spine/ad-9-b", "x": 390.23, "y": 74.55, "width": 704, "height": 106 }
+			},
+			"ad-9-warning": {
+				"ad-9-warning": { "path": "spine/ad-9-warning", "x": 168.13, "y": 319.96, "width": 176, "height": 141 }
+			},
+			"white": {
+				"white": {
+					"path": "spine/white",
+					"x": 394.37,
+					"y": 196.26,
+					"scaleX": 782.8915,
+					"scaleY": 394.7994,
+					"width": 1,
+					"height": 1
+				}
+			}
+		}
+	}
+],
+"animations": {
+	"animation": {
+		"slots": {
+			"ad-9-b": {
+				"color": [
+					{ "color": "ffffffff" },
+					{ "time": 1, "color": "ffffff00" },
+					{ "time": 2, "color": "ffffffff" }
+				]
+			},
+			"ad-9-warning": {
+				"attachment": [
+					{ "time": 0.1667, "name": null },
+					{ "time": 0.3333, "name": "ad-9-warning" },
+					{ "time": 0.5, "name": null },
+					{ "time": 0.6667, "name": "ad-9-warning" },
+					{ "time": 0.8333, "name": null },
+					{ "time": 1, "name": "ad-9-warning" },
+					{ "time": 1.1667, "name": null },
+					{ "time": 1.3333, "name": "ad-9-warning" },
+					{ "time": 1.5, "name": null },
+					{ "time": 1.6667, "name": "ad-9-warning" },
+					{ "time": 1.8333, "name": null },
+					{ "time": 2, "name": "ad-9-warning" }
+				]
+			},
+			"white": {
+				"color": [
+					{ "color": "ff0000ff" },
+					{ "time": 0.3, "color": "dfff00ff" },
+					{ "time": 0.5667, "color": "1eff00ff" },
+					{ "time": 0.8667, "color": "00ffeaff" },
+					{ "time": 1.1333, "color": "0018ffff" },
+					{ "time": 1.4333, "color": "7600ffff" },
+					{ "time": 1.7, "color": "fd00ffff" },
+					{ "time": 2, "color": "ff0000ff" }
+				]
+			}
+		}
+	}
+}
+}

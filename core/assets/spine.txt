@@ -1,0 +1,12 @@
+spine/ad1.json
+spine/ad10.json
+spine/ad11.json
+spine/ad2.json
+spine/ad3.json
+spine/ad4.json
+spine/ad5.json
+spine/ad6.json
+spine/ad7.json
+spine/ad8.json
+spine/ad9.json
+spine/logo.json
